@@ -15,4 +15,4 @@ export class Task {
     }
 }
 
-export type ListTask = Array<Task>;
+export type TaskList = Array<Task>;

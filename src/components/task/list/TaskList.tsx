@@ -8,6 +8,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+import { useAppSelector, useAppDispatch } from '../../../app/hooks';
+import {
+  getlAllAsync,
+  allTasks,
+  statusTaskService,
+} from '../../../services/task/taskSlice';
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -47,6 +54,21 @@ const rows = [
 ];
 
 export default function TaskList() {
+  //TODO trocar 'rows' por 'allTasksV'
+  const allTasksV = useAppSelector(allTasks);
+  const statusTaskServiceV = useAppSelector(statusTaskService);
+  const dispatch = useAppDispatch();
+
+  //console.log(statusTaskServiceV)
+  if(statusTaskServiceV === 'idle')
+    dispatch(getlAllAsync())
+
+  /*
+  if(statusTaskServiceV === 'succeeded')
+    console.log(allTasksV)
+  */
+
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
