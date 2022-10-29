@@ -1,12 +1,12 @@
 export enum TaskStatus {
-  NOVA = "NOVA",
-  ANDAMENTO = "ANDAMENTO",
-  CONCLUIDA = "CONCLUIDA",
+  NOVA,
+  ANDAMENTO,
+  CONCLUIDA,
 }
 
 export interface ITaskStatus {
-    value: TaskStatus,
-    label: string
+  value: TaskStatus,
+  label: string
 }
 
 export const ITaskStatusList: ITaskStatus[] = [

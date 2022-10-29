@@ -1,17 +1,18 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { TaskList } from '../../models/Task';
-import { getAll } from './taskAPI';
+import { Task, TaskList } from '../../models/Task';
+import { getAll, add, update, deleteTask } from './taskAPI';
 
 export interface TaskState {
-  all: TaskList;
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  list: TaskList;
+  param: Task;
+  getAllStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
 }
 
-//TODO: criar um status pra cada operação
 const initialState: TaskState = {
-  all: [],
-  status: 'idle',
+  list: [],
+  param: {} as Task,
+  getAllStatus: 'idle',
 };
 
 export const getlAllAsync = createAsyncThunk(
@@ -22,28 +23,75 @@ export const getlAllAsync = createAsyncThunk(
   }
 );
 
+export const addAsync = createAsyncThunk(
+  'task/add',
+  async (task: Task) => {
+    const response = await add(task);
+    return response.data;
+  }
+);
+
+export const updateAsync = createAsyncThunk(
+  'task/update',
+  async (task: Task) => {
+    const response = await update(task);
+    return response.data;
+  }
+);
+
+export const deleteAsync = createAsyncThunk(
+  'task/delete',
+  async (id: number | undefined) => {
+    await deleteTask(id || 0);
+    return id;
+  }
+);
+
 export const taskSlice = createSlice({
   name: 'task',
   initialState,
   
   reducers: {
+    setParam: (state, action) => {
+      state.param = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
+      //get list
       .addCase(getlAllAsync.pending, (state) => {
-        state.status = 'loading';
+        state.getAllStatus = 'loading';
       })
       .addCase(getlAllAsync.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.all = action.payload;
+        state.getAllStatus = 'succeeded';
+        state.list = action.payload;
       })
       .addCase(getlAllAsync.rejected, (state) => {
-        state.status = 'failed';
-      });
+        state.getAllStatus = 'failed';
+      })
+      //add
+      .addCase(addAsync.fulfilled, (state, action) => {
+        state.list = [...state.list, action.payload];
+      })
+      //update
+      .addCase(updateAsync.fulfilled, (state, action) => {
+        state.list = state.list.map(task => {
+          if(task.id !== action.payload.id)
+            return task
+          return action.payload
+        });
+      })
+      //delete
+      .addCase(deleteAsync.fulfilled, (state, action) => {
+        state.list = state.list.filter(task => task.id !== action.payload);
+      })
+
   },
 });
 
-export const allTasks = (state: RootState) => state.task.all;
-export const statusTaskService = (state: RootState) => state.task.status;
+export const allTasks = (state: RootState) => state.task.list;
+export const paramTask = (state: RootState) => state.task.param;
+export const getAllStatusTaskService = (state: RootState) => state.task.getAllStatus;
 
+export const { setParam } = taskSlice.actions;
 export default taskSlice.reducer;

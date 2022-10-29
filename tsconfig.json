@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
@@ -22,7 +23,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "preserve"
   },
   "include": [
     "src"

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes,  useNavigate  } from 'react-router-dom';
 import './App.css';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -77,6 +77,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 function App() {
 
+  const navigate = useNavigate();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -94,7 +95,7 @@ function App() {
     },
   });
 
-  /* 
+  /* in case to use another theme
   const lightTheme = createTheme({
     palette: {
       mode: 'light',
@@ -144,7 +145,7 @@ function App() {
           <Divider />
           <List>
             <ListItem key="listagem" disablePadding>
-              <ListItemButton href="/">
+              <ListItemButton onClick={() => { navigate('/') }}>
                 <ListItemIcon>
                   <ListIcon />
                 </ListItemIcon>
@@ -152,7 +153,7 @@ function App() {
               </ListItemButton>
             </ListItem>
             <ListItem key="cadastro" disablePadding>
-              <ListItemButton href="/todo_register">
+              <ListItemButton onClick={() => { navigate('/todo_register') }}>
                 <ListItemIcon>
                   <CreateIcon />
                 </ListItemIcon>
@@ -163,15 +164,13 @@ function App() {
         </Drawer>
         <Main open={open}>
           <DrawerHeader />
-          <BrowserRouter>
             <Routes>
               <Route path="/" >
                 <Route index element={<TaskList />} />
                 <Route path="todo_register" element={<TaskRegister />} />
+                <Route path="todo_edit/:id" element={<TaskRegister />} />
               </Route>
             </Routes>
-          </BrowserRouter>
-
         </Main>
       </Box>
     </ThemeProvider>

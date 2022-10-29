@@ -1,12 +1,12 @@
 import { TaskStatus } from "./TaskStatus"
 
 export class Task {
-    id: number | undefined
+    id?: number
     name: string
     status: TaskStatus
-    description: string
-    createdAt: Date | undefined
-    updatedAt: Date | undefined
+    description?: string
+    createdAt?: string
+    updatedAt?: string
   
     constructor(name: string, status: TaskStatus, description: string){
         this.name = name;

@@ -1,11 +1,5 @@
 import { Task, TaskList } from "../../models/Task";
 
-export function fetchCount(amount = 1) {
-  return new Promise<{ data: number }>((resolve) =>
-    setTimeout(() => resolve({ data: amount }), 500)
-  );
-}
-
 function getTaskList(): TaskList {
   const strTaskList = window.localStorage.getItem('taskList');
   const taskList: TaskList = JSON.parse(strTaskList || "[]")
@@ -14,13 +8,15 @@ function getTaskList(): TaskList {
 
 function getNewId(taskList: TaskList): number {
   const taskMaxId = taskList.reduce((before, now) => {
-    if(now.id! > before.id!) {
+    const nowId = now.id || 0
+    const beforeId = before.id || 0
+    if(nowId > beforeId) {
       return now
     } else {
       return before
     }
-  });
-  return (!taskMaxId ? 0 : taskMaxId.id)! + 1;
+  }, {} as Task);
+  return ((!taskMaxId.id ? 0 : taskMaxId.id)! + 1);
 }
 
 //Mock functions to mimic making an async request for data
