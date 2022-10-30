@@ -4,6 +4,11 @@ It's a task manager wrote in Type Script, persisting data on Local Storage.
 This project was made with [Material Design](https://mui.com/material-ui/) and [Redux](https://redux.js.org/).
 All dependencies are managed with [Node](https://nodejs.org/en/).
 
+## Usage
+
+When you open this App the first thing you see is a list of all tasks, all registers are saved on your browser.\
+In the left you can open a menu, choose if you want to make a new task or return to your task list.
+
 ## Available Scripts
 
 In the project directory, you can run:
