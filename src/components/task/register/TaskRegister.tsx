@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import './TaskRegister.css';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, MenuItem, Stack } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, MenuItem, Stack } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { ITaskStatusList, TaskStatus } from '../../../models/TaskStatus';
@@ -117,38 +118,46 @@ export default function TaskRegister() {
       autoComplete="off"
       onSubmit={handleSubmit}
     >
-      <TextField
-        id="name"
-        label="Nome"
-        required
-        error={hasNameError}
-        helperText={helperNameError}
-        value={name}
-        onChange={handleNameChange}
-      />
-      <TextField
-        required
-        id="status"
-        select
-        label="Status"
-        value={status}
-        onChange={handleStatusChange}
-      >
-        {ITaskStatusList.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-      <TextField
-        id="description"
-        label="Descrição"
-        value={description}
-        onChange={handleDescricaoChange}
-        multiline
-        rows={4}
-      />
-      <Stack ml={1} direction="row" spacing={2}>
+      <Grid container rowSpacing={1} columnSpacing={2} className="grid-container-task-register">
+        <Grid item={true} xs={12} sm={8}>
+          <TextField
+            id="name"
+            label="Nome"
+            required
+            error={hasNameError}
+            helperText={helperNameError}
+            value={name}
+            onChange={handleNameChange}
+          />
+        </Grid>
+        <Grid item={true} xs={12} sm={4}>
+          <TextField
+            required
+            id="status"
+            select
+            label="Status"
+            value={status}
+            onChange={handleStatusChange}
+          >
+            {ITaskStatusList.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Grid>
+        <Grid item={true} xs={12}>
+          <TextField
+            id="description"
+            label="Descrição"
+            value={description}
+            onChange={handleDescricaoChange}
+            multiline
+            rows={4}
+          />
+        </Grid>
+      </Grid>
+      <Stack ml={1} mt={1} spacing={2} direction="row">
         <Button onClick={onClickCancel} variant="outlined" startIcon={<CancelIcon />}>
           Cancelar
         </Button>
