@@ -12,8 +12,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate  } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
-
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
+import { TaskStatus, ITaskStatusList } from '../../../models/TaskStatus';
 import {
   getlAllAsync,
   deleteAsync,
@@ -21,8 +21,6 @@ import {
   getAllStatusTaskService,
   setParam,
 } from '../../../services/task/taskSlice';
-import { TaskStatus, ITaskStatusList } from '../../../models/TaskStatus';
-
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -47,7 +45,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function TaskList() {
 
   const navigate = useNavigate();
-
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);

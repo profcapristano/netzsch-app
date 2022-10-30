@@ -95,20 +95,11 @@ function App() {
     },
   });
 
-  /* in case to use another theme
-  const lightTheme = createTheme({
-    palette: {
-      mode: 'light',
-    },
-  });
-  */
-
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <Box sx={{ display: 'flex' }}>
         <AppBar position="fixed" open={open}>
-
           <Toolbar>
             <IconButton
               color="inherit"

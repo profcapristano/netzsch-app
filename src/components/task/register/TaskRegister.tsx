@@ -9,16 +9,16 @@ import { Task } from '../../../models/Task';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate  } from 'react-router-dom';
-
+import { useParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import {
   addAsync,
   updateAsync,
   paramTask,
 } from '../../../services/task/taskSlice';
-import { useParams } from 'react-router-dom';
 
 export default function TaskRegister() {
+
   const params = useParams();
   const navigate = useNavigate();
 
@@ -31,8 +31,8 @@ export default function TaskRegister() {
   const [hasNameError, setHasNameError] = useState(false); 
   const [helperNameError, setHelperNameError] = useState(""); 
 
-  const paramTaskV = useAppSelector(paramTask);
   const dispatch = useAppDispatch();
+  const paramTaskV = useAppSelector(paramTask);
 
   const [openCancelDialog, setOpenCancelDialog] = React.useState(false);
   const theme = useTheme();
@@ -111,7 +111,7 @@ export default function TaskRegister() {
     <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '50ch' },
+        '& .MuiTextField-root': { m: 1, width: '100%' },
       }}
       noValidate
       autoComplete="off"
