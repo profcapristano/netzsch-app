@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './TaskRegister.css';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, MenuItem, Stack } from '@mui/material';
@@ -118,7 +117,7 @@ export default function TaskRegister() {
       autoComplete="off"
       onSubmit={handleSubmit}
     >
-      <Grid container rowSpacing={1} columnSpacing={2} className="grid-container-task-register">
+      <Grid container rowSpacing={1} columnSpacing={2} sx={{ maxWidth: 1200 }}>
         <Grid item={true} xs={12} sm={8}>
           <TextField
             id="name"

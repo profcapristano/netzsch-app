@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Routes,  useNavigate  } from 'react-router-dom';
-import './App.css';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
