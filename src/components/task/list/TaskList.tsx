@@ -97,12 +97,12 @@ export default function TaskList() {
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Nome</StyledTableCell>
-              <StyledTableCell align="right">Status</StyledTableCell>
-              <StyledTableCell align="right">Descrição</StyledTableCell>
-              <StyledTableCell align="right">Criação</StyledTableCell>
-              <StyledTableCell align="right">Alteração</StyledTableCell>
-              <StyledTableCell align="center">Ações</StyledTableCell>
+              <StyledTableCell width="20%">Nome</StyledTableCell>
+              <StyledTableCell width="10%">Status</StyledTableCell>
+              <StyledTableCell width="40%">Descrição</StyledTableCell>
+              <StyledTableCell width="10%">Criação</StyledTableCell>
+              <StyledTableCell width="10%">Alteração</StyledTableCell>
+              <StyledTableCell width="10%" align="center">Ações</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -111,10 +111,10 @@ export default function TaskList() {
                 <StyledTableCell key={`name_${row.id}`} component="th" scope="row">
                   {row.name}
                 </StyledTableCell>
-                <StyledTableCell key={`status_${row.id}`} align="right">{getTaskStatusDescription(row.status)}</StyledTableCell>
-                <StyledTableCell key={`description_${row.id}`} align="right">{row.description}</StyledTableCell>
-                <StyledTableCell key={`createdAt_${row.id}`} align="right">{row.createdAt}</StyledTableCell>
-                <StyledTableCell key={`updatedAt_${row.id}`} align="right">{row.updatedAt}</StyledTableCell>
+                <StyledTableCell key={`status_${row.id}`}>{getTaskStatusDescription(row.status)}</StyledTableCell>
+                <StyledTableCell key={`description_${row.id}`}>{row.description}</StyledTableCell>
+                <StyledTableCell key={`createdAt_${row.id}`}>{row.createdAt}</StyledTableCell>
+                <StyledTableCell key={`updatedAt_${row.id}`}>{row.updatedAt}</StyledTableCell>
                 <StyledTableCell key={`actions_${row.id}`} align="center">
                   <Grid container spacing={2}>
                     <Grid item xs={6}>
