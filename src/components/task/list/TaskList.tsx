@@ -123,7 +123,7 @@ export default function TaskList() {
                       </IconButton>
                     </Grid>
                     <Grid item xs={6}>
-                      <IconButton aria-label="edit" onClick={() => {dispatch(setParam(row)); navigate(`/todo_edit/${row.id}`);}} >
+                      <IconButton aria-label="edit" onClick={() => {dispatch(setParam(row)); navigate(`/todo-edit/${row.id}`);}} >
                         <EditIcon />
                       </IconButton>
                     </Grid>

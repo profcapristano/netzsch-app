@@ -143,7 +143,7 @@ function App() {
               </ListItemButton>
             </ListItem>
             <ListItem key="cadastro" disablePadding>
-              <ListItemButton onClick={() => { navigate('/todo_register') }}>
+              <ListItemButton onClick={() => { navigate('/todo-register') }}>
                 <ListItemIcon>
                   <CreateIcon />
                 </ListItemIcon>
@@ -157,8 +157,8 @@ function App() {
             <Routes>
               <Route path="/" >
                 <Route index element={<TaskList />} />
-                <Route path="todo_register" element={<TaskRegister />} />
-                <Route path="todo_edit/:id" element={<TaskRegister />} />
+                <Route path="todo-register" element={<TaskRegister />} />
+                <Route path="todo-edit/:id" element={<TaskRegister />} />
               </Route>
             </Routes>
         </Main>
