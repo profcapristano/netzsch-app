@@ -22,7 +22,7 @@ export class Task implements ITask {
 
     constructor();
     constructor(params: ITask = {} as ITask){
-        let { id = 0, name = "", status = TaskStatus.NOVA, description = "", createdAt = "",  updatedAt} = params;
+        let { id, name = "", status = TaskStatus.NOVA, description, createdAt,  updatedAt} = params;
         this.id = id;
         this.name = name;
         this.status = status;
