@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, MenuItem, Stack } from '@mui/material';
@@ -30,7 +30,7 @@ export default function TaskRegister() {
   const dispatch = useAppDispatch();
   const paramTaskV = useAppSelector(paramTask);
 
-  const [openCancelDialog, setOpenCancelDialog] = React.useState(false);
+  const [openCancelDialog, setOpenCancelDialog] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -51,17 +51,17 @@ export default function TaskRegister() {
     }
   }, [paramTaskV]);
 
-  const handleNameChange = (event: React.ChangeEvent<any>) => {
+  const handleNameChange = (event: ChangeEvent<any>) => {
     setCurrentTask({...currentTask, name: event.target.value})
     setHasNameError(false);
     setHelperNameError("")
   };
 
-  const handleStatusChange = (event: React.ChangeEvent<any>) => {
+  const handleStatusChange = (event: ChangeEvent<any>) => {
     setCurrentTask({...currentTask, status: event.target.value})
   };
 
-  const handleDescricaoChange = (event: React.ChangeEvent<any>) => {
+  const handleDescricaoChange = (event: ChangeEvent<any>) => {
     setCurrentTask({...currentTask, description: event.target.value})
   };
 

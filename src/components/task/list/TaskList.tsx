@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,7 +11,6 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate  } from 'react-router-dom';
-import { useTheme } from '@mui/material/styles';
 import { useAppSelector, useAppDispatch } from '../../../app/hooks';
 import { TaskStatus, ITaskStatusList } from '../../../models/TaskStatus';
 import {
@@ -47,9 +46,8 @@ export default function TaskList() {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
-  const [idDelete, setIdDelete] = React.useState<number | undefined>();//
-  const theme = useTheme();
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [idDelete, setIdDelete] = useState<number | undefined>();
   const allTasksV = useAppSelector(allTasks);
   const getAllStatusTaskServiceV = useAppSelector(getAllStatusTaskService);
   const dispatch = useAppDispatch();
@@ -75,7 +73,7 @@ export default function TaskList() {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
