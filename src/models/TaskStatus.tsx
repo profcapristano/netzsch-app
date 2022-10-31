@@ -10,7 +10,7 @@ export interface ITaskStatus {
 }
 
 export const ITaskStatusList: ITaskStatus[] = [
-    { value: TaskStatus.NOVA, label: 'Nova' },
-    { value: TaskStatus.ANDAMENTO, label: 'Andamento' },
-    { value: TaskStatus.CONCLUIDA, label: 'Concluída' },
+  { value: TaskStatus.NOVA, label: 'Nova' },
+  { value: TaskStatus.ANDAMENTO, label: 'Andamento' },
+  { value: TaskStatus.CONCLUIDA, label: 'Concluída' },
 ]

@@ -1,12 +1,12 @@
-import { Task, TaskList } from "../../models/Task";
+import { ITask, ITaskList } from "../../models/Task";
 
-function getTaskList(): TaskList {
+function getTaskList(): ITaskList {
   const strTaskList = window.localStorage.getItem('taskList');
-  const taskList: TaskList = JSON.parse(strTaskList || "[]")
+  const taskList: ITaskList = JSON.parse(strTaskList || "[]")
   return taskList;
 }
 
-function getNewId(taskList: TaskList): number {
+function getNewId(taskList: ITaskList): number {
   const taskMaxId = taskList.reduce((before, now) => {
     const nowId = now.id || 0
     const beforeId = before.id || 0
@@ -15,7 +15,7 @@ function getNewId(taskList: TaskList): number {
     } else {
       return before
     }
-  }, {} as Task);
+  }, {} as ITask);
   return ((!taskMaxId.id ? 0 : taskMaxId.id)! + 1);
 }
 
@@ -26,9 +26,9 @@ export function getAll() {
   });
 }
 
-export function add(task: Task) {
-  return new Promise<{ data: Task }>((resolve) => {
-    const taskList: TaskList = getTaskList()
+export function add(task: ITask) {
+  return new Promise<{ data: ITask }>((resolve) => {
+    const taskList: ITaskList = getTaskList()
     task.id = getNewId(taskList);
     taskList.push(task)
     window.localStorage.setItem('taskList', JSON.stringify(taskList));
@@ -38,16 +38,16 @@ export function add(task: Task) {
 
 export function deleteTask(id: number) {
   return new Promise<void>((resolve) => {
-    let taskList: TaskList = getTaskList()
+    let taskList: ITaskList = getTaskList()
     taskList = taskList.filter(task => task.id !== id)
     window.localStorage.setItem('taskList', JSON.stringify(taskList));
     setTimeout(() => resolve(), 500)
   });
 }
 
-export function update(newTask: Task) {
-  return new Promise<{ data: Task }>((resolve) => {
-    let taskList: TaskList = getTaskList()
+export function update(newTask: ITask) {
+  return new Promise<{ data: ITask }>((resolve) => {
+    let taskList: ITaskList = getTaskList()
     taskList = taskList.map(task => {
       if(task.id !== newTask.id)
         return task

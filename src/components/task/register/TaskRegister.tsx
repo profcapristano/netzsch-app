@@ -4,8 +4,8 @@ import TextField from '@mui/material/TextField';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, MenuItem, Stack } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { ITaskStatusList, TaskStatus } from '../../../models/TaskStatus';
-import { Task } from '../../../models/Task';
+import { ITaskStatusList } from '../../../models/TaskStatus';
+import { ITask, Task } from '../../../models/Task';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate  } from 'react-router-dom';
@@ -22,11 +22,7 @@ export default function TaskRegister() {
   const params = useParams();
   const navigate = useNavigate();
 
-  const [id, setId] = useState<number | undefined>();
-  const [name, setName] = useState('');
-  const [status, setStatus] = useState(TaskStatus.NOVA);
-  const [description, setDescription] = useState<string | undefined>();
-  const [createdAt, setCreatedAt] = useState<string | undefined>();
+  const [currentTask, setCurrentTask] = useState<ITask>(new Task());
 
   const [hasNameError, setHasNameError] = useState(false); 
   const [helperNameError, setHelperNameError] = useState(""); 
@@ -50,27 +46,23 @@ export default function TaskRegister() {
     if(!!params.id) {
       const paramId = +params.id
       if(paramTaskV.id === paramId) {
-        setId(paramTaskV.id)
-        setName(paramTaskV.name)
-        setStatus(paramTaskV.status)
-        setDescription(paramTaskV.description)
-        setCreatedAt(paramTaskV.createdAt)
+        setCurrentTask(paramTaskV)
       }
     }
   }, [paramTaskV]);
 
   const handleNameChange = (event: React.ChangeEvent<any>) => {
-    setName(event.target.value);
+    setCurrentTask({...currentTask, name: event.target.value})
     setHasNameError(false);
     setHelperNameError("")
   };
 
   const handleStatusChange = (event: React.ChangeEvent<any>) => {
-    setStatus(event.target.value);
+    setCurrentTask({...currentTask, status: event.target.value})
   };
 
   const handleDescricaoChange = (event: React.ChangeEvent<any>) => {
-    setDescription(event.target.value);
+    setCurrentTask({...currentTask, description: event.target.value})
   };
 
   const onClickCancel = () => {
@@ -83,7 +75,7 @@ export default function TaskRegister() {
   }
 
   const isValidFields = (): boolean => {
-    if(!name || name === "") {
+    if(!currentTask.name || currentTask.name === "") {
       setHasNameError(true);
       setHelperNameError("Campo obrigatório");
       return false;
@@ -93,15 +85,13 @@ export default function TaskRegister() {
 
   const handleSubmit = (event: React.ChangeEvent<any>) => {
     event.preventDefault();
-    const task: Task = {id, name, status, description, createdAt}
     if(isValidFields()) {
-      if(!task.id) {
-        task.createdAt = new Date().toLocaleDateString()
-        console.log("salvar")
-        dispatch(addAsync(task))
+      if(!currentTask.id) {
+        currentTask.createdAt = new Date().toLocaleDateString()
+        dispatch(addAsync(currentTask))
       } else {
-        task.updatedAt = new Date().toLocaleDateString()
-        dispatch(updateAsync(task))
+        currentTask.updatedAt = new Date().toLocaleDateString()
+        dispatch(updateAsync(currentTask))
       }
       navigate('/');
     }
@@ -125,7 +115,7 @@ export default function TaskRegister() {
             required
             error={hasNameError}
             helperText={helperNameError}
-            value={name}
+            value={currentTask.name}
             onChange={handleNameChange}
           />
         </Grid>
@@ -135,7 +125,7 @@ export default function TaskRegister() {
             id="status"
             select
             label="Status"
-            value={status}
+            value={currentTask.status}
             onChange={handleStatusChange}
           >
             {ITaskStatusList.map((option) => (
@@ -149,7 +139,7 @@ export default function TaskRegister() {
           <TextField
             id="description"
             label="Descrição"
-            value={description}
+            value={currentTask.description}
             onChange={handleDescricaoChange}
             multiline
             rows={4}

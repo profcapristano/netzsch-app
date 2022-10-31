@@ -1,17 +1,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { Task, TaskList } from '../../models/Task';
+import { ITask, ITaskList } from '../../models/Task';
 import { getAll, add, update, deleteTask } from './taskAPI';
 
 export interface TaskState {
-  list: TaskList;
-  param: Task;
+  list: ITaskList;
+  param: ITask;
   getAllStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
 }
 
 const initialState: TaskState = {
   list: [],
-  param: {} as Task,
+  param: {} as ITask,
   getAllStatus: 'idle',
 };
 
@@ -25,7 +25,7 @@ export const getlAllAsync = createAsyncThunk(
 
 export const addAsync = createAsyncThunk(
   'task/add',
-  async (task: Task) => {
+  async (task: ITask) => {
     const response = await add(task);
     return response.data;
   }
@@ -33,7 +33,7 @@ export const addAsync = createAsyncThunk(
 
 export const updateAsync = createAsyncThunk(
   'task/update',
-  async (task: Task) => {
+  async (task: ITask) => {
     const response = await update(task);
     return response.data;
   }
